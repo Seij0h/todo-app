@@ -20,15 +20,15 @@ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:en
 *{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--text);font:17px/1.4 -apple-system,system-ui,"Segoe UI",sans-serif}
-main{max-width:560px;margin:0 auto;padding:20px 16px 40px}
+main{max-width:560px;margin:0 auto;padding:20px 16px 40px;zoom:.9}
 h1{font-size:26px;margin:8px 0 2px}
 .sub{color:var(--muted);margin:0 0 18px;font-size:15px}
 .add{display:flex;gap:8px;margin-bottom:10px}
 input[type=text]{flex:1;min-width:0;padding:13px 14px;font-size:17px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--text)}
-button{font:inherit;cursor:pointer}
+button{font-family:inherit;font-size:14px;font-weight:600;line-height:1.2;cursor:pointer}
 .plus,#hplus{padding:0 18px;border:0;border-radius:12px;background:var(--amber);color:#1d1d1b;font-weight:600}
 .prios{display:flex;gap:8px;margin-bottom:16px}
-.prio{flex:1;padding:9px 6px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);font-size:15px}
+.prio{flex:1;padding:9px 6px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--text)}
 .prio.on{border-color:var(--c);color:var(--c);font-weight:600}
 ul{list-style:none;margin:0;padding:0;background:var(--card);border:1px solid var(--line);border-radius:14px}
 li{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:13px 14px;border-bottom:1px solid var(--line);border-left:5px solid var(--c,var(--line))}
@@ -37,13 +37,13 @@ li input{width:22px;height:22px;accent-color:var(--amber);flex:none}
 li span{flex:1;word-break:break-word}
 li.done span{color:var(--muted);text-decoration:line-through}
 li.done{opacity:.7}
-.badge{border:1px solid var(--c);color:var(--c);background:none;border-radius:999px;padding:2px 10px;font-size:13px;flex:none}
-.x{border:0;background:none;color:var(--muted);font-size:22px;padding:2px 6px}
+.badge{border:1px solid var(--c);color:var(--c);background:none;border-radius:999px;padding:3px 10px;flex:none}
+.x{border:0;background:none;color:var(--muted);padding:4px 8px}
 .note{flex:0 0 100%;padding-left:32px;color:var(--muted);font-size:15px;white-space:pre-wrap;word-break:break-word;cursor:pointer}
 .note-in{flex:0 0 calc(100% - 32px);margin-left:32px;min-height:70px;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);resize:vertical}
 [hidden]{display:none!important}
-.tabs{display:flex;gap:6px;margin:0 0 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px}
-.tab{flex:1;border:0;background:none;color:var(--muted);padding:9px 4px;border-radius:9px;font-size:15px}
+.tabs{display:flex;overflow-x:auto;gap:6px;margin:0 0 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px}
+.tab{flex:1;border:0;background:none;color:var(--muted);padding:10px 0;border-radius:9px;white-space:nowrap}
 .tab.on{background:var(--amber);color:#1d1d1b;font-weight:600}
 .habit{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px}
 .hhead{display:flex;align-items:center;gap:8px;margin-bottom:8px}
@@ -56,7 +56,7 @@ li.done{opacity:.7}
 .day input{width:26px;height:26px;accent-color:var(--amber)}
 .mh{font-size:18px;margin:26px 0 10px}
 .mnav{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.mnav button{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:10px;width:40px;height:36px;font-size:20px}
+.mnav button{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:10px;width:40px;height:36px}
 #mtitle{font-weight:600}
 .mgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
 .mh7{text-align:center;color:var(--muted);font-size:12px}
@@ -65,15 +65,21 @@ li.done{opacity:.7}
 .mc.today{outline:2px solid var(--text);outline-offset:1px}
 .mc.future{opacity:.4}
 .mlegend{color:var(--muted);font-size:13px;margin:10px 0 0}
+.tinputs{display:flex;gap:8px;margin-bottom:16px}
+.tinputs input{flex:1;min-width:0;min-height:46px;padding:10px 12px;font-size:16px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--text)}
+.ed{min-width:68px;font-size:14px;font-weight:600;line-height:1.25}
+.et{font-weight:400;color:var(--muted)}
+li.past{opacity:.55}
+li.sep{display:block;border-left:0;color:var(--muted);font-size:13px;padding:8px 14px;background:var(--bg)}
 .empty{color:var(--muted);text-align:center;padding:26px 14px;display:block;border-left:0}
 .foot{display:flex;justify-content:space-between;gap:12px;margin-top:14px;color:var(--muted);font-size:15px}
-.foot button{border:0;background:none;color:var(--text);text-decoration:underline;font-size:15px;padding:0;flex:none}
+.foot button{border:0;background:none;color:var(--text);text-decoration:underline;padding:0;flex:none}
 </style>
 </head>
 <body>
 <main>
 <h1 id="title">Arbeit</h1>
-<nav class="tabs"><button class="tab on" id="tab-arbeit">Arbeit</button><button class="tab" id="tab-privat">Privat</button><button class="tab" id="tab-habit">Gewohnheiten</button></nav>
+<nav class="tabs"><button class="tab on" id="tab-arbeit">Arbeit</button><button class="tab" id="tab-privat">Privat</button><button class="tab" id="tab-termine">Termine</button><button class="tab" id="tab-habit">Gewohnheiten</button></nav>
 <section id="view-arbeit">
 <p class="sub" id="count-arbeit"></p>
 <div class="add">
@@ -93,6 +99,16 @@ li.done{opacity:.7}
 <div class="prios" id="prios-privat"></div>
 <ul id="liste-privat"></ul>
 <div class="foot"><span>Erledigte verschwinden am nächsten Tag</span><button id="clear-privat">Erledigte löschen</button></div>
+</section>
+<section id="view-termine" hidden>
+<p class="sub" id="count-termine"></p>
+<div class="add">
+<input type="text" id="neu-termine" placeholder="Neuer Termin …" autocomplete="off">
+<button class="plus" id="plus-termine">Hinzufügen</button>
+</div>
+<div class="tinputs"><input type="date" id="tdate" aria-label="Datum"><input type="time" id="ttime" aria-label="Uhrzeit (optional)"></div>
+<ul id="liste-termine"></ul>
+<div class="foot"><span>Vergangene bleiben, bis du sie löschst</span><button id="clear-termine">Vergangene löschen</button></div>
 </section>
 <section id="view-habit" hidden>
 <p class="sub" id="hweek"></p>
@@ -177,7 +193,7 @@ var ct=document.createElement("div");ct.className="hcount";ct.textContent=n+"/7"
 var del=document.createElement("button");del.className="x";del.textContent="×";del.setAttribute("aria-label","Löschen");
 del.onclick=function(){
 if(del.dataset.arm){habits.splice(habits.indexOf(h),1);hsave();hrender()}
-else{del.dataset.arm="1";del.textContent="Löschen?";del.style.cssText="font-size:14px;color:var(--p0)";
+else{del.dataset.arm="1";del.textContent="Löschen?";del.style.cssText="color:var(--p0)";
 setTimeout(function(){del.removeAttribute("data-arm");del.textContent="×";del.style.cssText=""},3000)}};
 hd.append(nm,ct,del);c.appendChild(hd);
 var g=document.createElement("div");g.className="days";
@@ -210,11 +226,46 @@ function hadd(){var f=document.getElementById("hneu"),v=f.value.trim();if(!v)ret
 habits.push({id:Date.now()+"-"+Math.random().toString(36).slice(2,6),name:v,days:{}});f.value="";hsave();hrender()}
 document.getElementById("hplus").onclick=hadd;
 document.getElementById("hneu").onkeydown=function(e){if(e.key==="Enter")hadd()};
-var VIEWS=["arbeit","privat","habit"],TITLES={arbeit:"Arbeit",privat:"Privat",habit:"Gewohnheiten"};
+var TKEY="termine-v1",terms=[];
+try{terms=JSON.parse(localStorage.getItem(TKEY)||"[]")}catch(e){terms=[]}
+if(!Array.isArray(terms))terms=[];
+function tsave(){try{localStorage.setItem(TKEY,JSON.stringify(terms))}catch(e){}}
+var WDS=["So","Mo","Di","Mi","Do","Fr","Sa"];
+function dlabel(k){var a=k.split("-"),d=new Date(+a[0],+a[1]-1,+a[2]),n=new Date();
+if(k===fmt(n))return"Heute";
+if(k===fmt(new Date(n.getFullYear(),n.getMonth(),n.getDate()+1)))return"Morgen";
+return WDS[d.getDay()]+" "+d.getDate()+"."+(d.getMonth()+1)+"."}
+function trender(){
+var ul=$("liste-termine"),t=today();ul.innerHTML="";
+var all=terms.map(function(e,i){return{e:e,i:i}});
+function cmp(a,b){return(a.e.date<b.e.date?-1:a.e.date>b.e.date?1:0)||(a.e.time<b.e.time?-1:a.e.time>b.e.time?1:0)||(a.i-b.i)}
+var up=all.filter(function(o){return o.e.date>=t}).sort(cmp);
+var past=all.filter(function(o){return o.e.date<t}).sort(function(a,b){return cmp(b,a)});
+if(!all.length){var em=document.createElement("li");em.className="empty";em.textContent="Keine Termine. Trag oben den ersten ein.";ul.appendChild(em)}
+function row(o,isPast){var e=o.e,li=document.createElement("li");
+if(isPast)li.className="past";else if(e.date===t)li.style.setProperty("--c","var(--amber)");
+var dv=document.createElement("div");dv.className="ed";
+var l1=document.createElement("div");l1.textContent=dlabel(e.date);dv.appendChild(l1);
+if(e.time){var l2=document.createElement("div");l2.className="et";l2.textContent=e.time;dv.appendChild(l2)}
+var sp=document.createElement("span");sp.textContent=e.text;
+var del=document.createElement("button");del.className="x";del.textContent="×";del.setAttribute("aria-label","Löschen");
+del.onclick=function(){terms.splice(terms.indexOf(e),1);tsave();trender()};
+li.append(dv,sp,del);ul.appendChild(li)}
+up.forEach(function(o){row(o,false)});
+if(past.length){var sp2=document.createElement("li");sp2.className="sep";sp2.textContent="Vergangen";ul.appendChild(sp2);past.forEach(function(o){row(o,true)})}
+$("count-termine").textContent=up.length+" anstehend"}
+function tadd(){var f=$("neu-termine"),v=f.value.trim(),dt=$("tdate").value||today();if(!v)return;
+terms.push({text:v,date:dt,time:$("ttime").value||""});f.value="";$("ttime").value="";tsave();trender()}
+$("tdate").value=today();
+$("plus-termine").onclick=tadd;
+$("neu-termine").onkeydown=function(e){if(e.key==="Enter")tadd()};
+$("clear-termine").onclick=function(){var t=today();terms=terms.filter(function(e){return e.date>=t});tsave();trender()};
+trender();
+var VIEWS=["arbeit","privat","termine","habit"],TITLES={arbeit:"Arbeit",privat:"Privat",termine:"Termine",habit:"Gewohnheiten"};
 function tab(v){VIEWS.forEach(function(n){$("view-"+n).hidden=n!==v;$("tab-"+n).className="tab"+(n===v?" on":"")});
-$("title").textContent=TITLES[v];if(v==="habit")hrender()}
+$("title").textContent=TITLES[v];if(v==="termine")trender();if(v==="habit")hrender()}
 VIEWS.forEach(function(n){$("tab-"+n).onclick=function(){tab(n)}});
-function check(){lists.forEach(function(l){l.check()});hrender()}
+function check(){lists.forEach(function(l){l.check()});trender();hrender()}
 document.addEventListener("visibilitychange",function(){if(!document.hidden)check()});
 setInterval(check,60000);
 if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){})}
