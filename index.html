@@ -26,7 +26,7 @@ h1{font-size:26px;margin:8px 0 2px}
 .add{display:flex;gap:8px;margin-bottom:10px}
 input[type=text]{flex:1;min-width:0;padding:13px 14px;font-size:17px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--text)}
 button{font:inherit;cursor:pointer}
-#plus{padding:0 18px;border:0;border-radius:12px;background:var(--amber);color:#1d1d1b;font-weight:600}
+.plus,#hplus{padding:0 18px;border:0;border-radius:12px;background:var(--amber);color:#1d1d1b;font-weight:600}
 .prios{display:flex;gap:8px;margin-bottom:16px}
 .prio{flex:1;padding:9px 6px;border:2px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);font-size:15px}
 .prio.on{border-color:var(--c);color:var(--c);font-weight:600}
@@ -41,6 +41,30 @@ li.done{opacity:.7}
 .x{border:0;background:none;color:var(--muted);font-size:22px;padding:2px 6px}
 .note{flex:0 0 100%;padding-left:32px;color:var(--muted);font-size:15px;white-space:pre-wrap;word-break:break-word;cursor:pointer}
 .note-in{flex:0 0 calc(100% - 32px);margin-left:32px;min-height:70px;padding:10px;font:inherit;font-size:16px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);resize:vertical}
+[hidden]{display:none!important}
+.tabs{display:flex;gap:6px;margin:0 0 16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px}
+.tab{flex:1;border:0;background:none;color:var(--muted);padding:9px 4px;border-radius:9px;font-size:15px}
+.tab.on{background:var(--amber);color:#1d1d1b;font-weight:600}
+.habit{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px}
+.hhead{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.hname{flex:1;font-weight:600;word-break:break-word}
+.hcount{color:var(--muted);font-size:14px}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.day{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:13px;color:var(--muted);padding:5px 0;border-radius:8px;border:1px solid transparent}
+.day.today{border-color:var(--amber);color:var(--text)}
+.day.future{opacity:.4}
+.day input{width:26px;height:26px;accent-color:var(--amber)}
+.mh{font-size:18px;margin:26px 0 10px}
+.mnav{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.mnav button{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:10px;width:40px;height:36px;font-size:20px}
+#mtitle{font-weight:600}
+.mgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.mh7{text-align:center;color:var(--muted);font-size:12px}
+.mc{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;border:1px solid var(--line);background:var(--card);font-size:14px;color:var(--muted)}
+.mc.on{border-color:var(--amber);font-weight:600}
+.mc.today{outline:2px solid var(--text);outline-offset:1px}
+.mc.future{opacity:.4}
+.mlegend{color:var(--muted);font-size:13px;margin:10px 0 0}
 .empty{color:var(--muted);text-align:center;padding:26px 14px;display:block;border-left:0}
 .foot{display:flex;justify-content:space-between;gap:12px;margin-top:14px;color:var(--muted);font-size:15px}
 .foot button{border:0;background:none;color:var(--text);text-decoration:underline;font-size:15px;padding:0;flex:none}
@@ -48,34 +72,60 @@ li.done{opacity:.7}
 </head>
 <body>
 <main>
-<h1>Meine To-Dos</h1>
-<p class="sub" id="count"></p>
+<h1 id="title">Arbeit</h1>
+<nav class="tabs"><button class="tab on" id="tab-arbeit">Arbeit</button><button class="tab" id="tab-privat">Privat</button><button class="tab" id="tab-habit">Gewohnheiten</button></nav>
+<section id="view-arbeit">
+<p class="sub" id="count-arbeit"></p>
 <div class="add">
-<input type="text" id="neu" placeholder="Neue Aufgabe …" autocomplete="off">
-<button id="plus">Hinzufügen</button>
+<input type="text" id="neu-arbeit" placeholder="Neue Aufgabe …" autocomplete="off">
+<button class="plus" id="plus-arbeit">Hinzufügen</button>
 </div>
-<div class="prios" id="prios"></div>
-<ul id="liste"></ul>
-<div class="foot"><span>Erledigte verschwinden am nächsten Tag</span><button id="clear">Erledigte löschen</button></div>
+<div class="prios" id="prios-arbeit"></div>
+<ul id="liste-arbeit"></ul>
+<div class="foot"><span>Erledigte verschwinden am nächsten Tag</span><button id="clear-arbeit">Erledigte löschen</button></div>
+</section>
+<section id="view-privat" hidden>
+<p class="sub" id="count-privat"></p>
+<div class="add">
+<input type="text" id="neu-privat" placeholder="Neue Aufgabe …" autocomplete="off">
+<button class="plus" id="plus-privat">Hinzufügen</button>
+</div>
+<div class="prios" id="prios-privat"></div>
+<ul id="liste-privat"></ul>
+<div class="foot"><span>Erledigte verschwinden am nächsten Tag</span><button id="clear-privat">Erledigte löschen</button></div>
+</section>
+<section id="view-habit" hidden>
+<p class="sub" id="hweek"></p>
+<div class="add">
+<input type="text" id="hneu" placeholder="Neue Gewohnheit …" autocomplete="off">
+<button id="hplus">Hinzufügen</button>
+</div>
+<div id="habits"></div>
+<h2 class="mh">Monatsübersicht</h2>
+<div class="mnav"><button id="mprev" aria-label="Voriger Monat">‹</button><span id="mtitle"></span><button id="mnext" aria-label="Nächster Monat">›</button></div>
+<div class="mgrid" id="mgrid"></div>
+<p class="mlegend">Gefüllt = an dem Tag etwas abgehakt. Je dunkler, desto mehr Gewohnheiten erledigt. Leer = nichts eingetragen.</p>
+<div class="foot"><span>Die Woche beginnt am Montag</span></div>
+</section>
 </main>
 <script>
-var KEY="todos-v2";
 var P=[{n:"Hoch",c:"var(--p0)"},{n:"Mittel",c:"var(--p1)"},{n:"Niedrig",c:"var(--p2)"}];
-var todos=[];
-try{todos=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem("todos-v1")||"[]")}catch(e){todos=[]}
-if(!Array.isArray(todos))todos=[];
+function $(i){return document.getElementById(i)}
 function today(){var d=new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(todos))}catch(e){}}
+function makeList(x,key,legacy){
+var todos=[],sel=1,editing=null;
+try{todos=JSON.parse(localStorage.getItem(key)||(legacy&&localStorage.getItem(legacy))||"[]")}catch(e){todos=[]}
+if(!Array.isArray(todos))todos=[];
+function save(){try{localStorage.setItem(key,JSON.stringify(todos))}catch(e){}}
 todos.forEach(function(t){if(typeof t.p!=="number")t.p=1;if(t.done&&!t.doneOn)t.doneOn=today()});
 function purge(){var d=today(),n=todos.length;
 todos=todos.filter(function(t){return!(t.done&&t.doneOn&&t.doneOn<d)});
 if(todos.length!==n){save();return true}return false}
-var sel=1;var editing=null;
-var pr=document.getElementById("prios");
+var pr=$("prios-"+x);
 P.forEach(function(p,i){var b=document.createElement("button");b.className="prio"+(i===sel?" on":"");b.textContent=p.n;b.style.setProperty("--c",p.c);
-b.onclick=function(){sel=i;Array.prototype.forEach.call(pr.children,function(x,j){x.className="prio"+(j===sel?" on":"")})};pr.appendChild(b)});
+b.onclick=function(){sel=i;Array.prototype.forEach.call(pr.children,function(y,j){y.className="prio"+(j===sel?" on":"")})};pr.appendChild(b)});
 function render(){
-var ul=document.getElementById("liste");ul.innerHTML="";var pending=null;
+var ul=$("liste-"+x);ul.innerHTML="";var pending=null;
 if(!todos.length){var e=document.createElement("li");e.className="empty";e.textContent="Noch nichts zu tun. Trag oben etwas ein.";ul.appendChild(e)}
 var order=todos.map(function(t,i){return{t:t,i:i}}).sort(function(a,b){
 return(a.t.done-b.t.done)||(a.t.p-b.t.p)||(a.i-b.i)});
@@ -97,15 +147,76 @@ else if(t.note){var nt=document.createElement("div");nt.className="note";nt.text
 ul.appendChild(li)});
 if(pending)pending.focus();
 var open=todos.filter(function(t){return!t.done}).length;
-document.getElementById("count").textContent=open+" offen · "+(todos.length-open)+" erledigt"}
-function add(){var f=document.getElementById("neu"),v=f.value.trim();if(!v)return;todos.push({text:v,done:false,p:sel,doneOn:null});f.value="";save();render()}
-document.getElementById("plus").onclick=add;
-document.getElementById("neu").onkeydown=function(e){if(e.key==="Enter")add()};
-document.getElementById("clear").onclick=function(){todos=todos.filter(function(t){return!t.done});save();render()};
-function check(){if(purge())render()}
+$("count-"+x).textContent=open+" offen · "+(todos.length-open)+" erledigt"}
+function add(){var f=$("neu-"+x),v=f.value.trim();if(!v)return;todos.push({text:v,done:false,p:sel,doneOn:null});f.value="";save();render()}
+$("plus-"+x).onclick=add;
+$("neu-"+x).onkeydown=function(e){if(e.key==="Enter")add()};
+$("clear-"+x).onclick=function(){todos=todos.filter(function(t){return!t.done});save();render()};
+purge();save();render();
+return{check:function(){if(purge())render()}}}
+var lists=[makeList("arbeit","todos-v2","todos-v1"),makeList("privat","todos-privat-v1")];
+var HKEY="habits-v1";
+var habits=[];
+try{habits=JSON.parse(localStorage.getItem(HKEY)||"[]")}catch(e){habits=[]}
+if(!Array.isArray(habits))habits=[];
+function hsave(){try{localStorage.setItem(HKEY,JSON.stringify(habits))}catch(e){}}
+function fmt(d){return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
+var WD=["Mo","Di","Mi","Do","Fr","Sa","So"];
+function week(){var n=new Date(),m=new Date(n.getFullYear(),n.getMonth(),n.getDate()-((n.getDay()+6)%7)),a=[];
+for(var i=0;i<7;i++)a.push(new Date(m.getFullYear(),m.getMonth(),m.getDate()+i));return a}
+function hrender(){
+var w=week(),t=today(),box=document.getElementById("habits");box.innerHTML="";
+document.getElementById("hweek").textContent="Woche vom "+w[0].getDate()+"."+(w[0].getMonth()+1)+". bis "+w[6].getDate()+"."+(w[6].getMonth()+1)+".";
+if(!habits.length){var e=document.createElement("div");e.className="empty";e.textContent="Noch keine Gewohnheiten. Trag oben die erste ein.";box.appendChild(e)}
+habits.forEach(function(h){
+var c=document.createElement("div");c.className="habit";
+var n=w.filter(function(d){return h.days&&h.days[fmt(d)]}).length;
+var hd=document.createElement("div");hd.className="hhead";
+var nm=document.createElement("div");nm.className="hname";nm.textContent=h.name;
+var ct=document.createElement("div");ct.className="hcount";ct.textContent=n+"/7";
+var del=document.createElement("button");del.className="x";del.textContent="×";del.setAttribute("aria-label","Löschen");
+del.onclick=function(){
+if(del.dataset.arm){habits.splice(habits.indexOf(h),1);hsave();hrender()}
+else{del.dataset.arm="1";del.textContent="Löschen?";del.style.cssText="font-size:14px;color:var(--p0)";
+setTimeout(function(){del.removeAttribute("data-arm");del.textContent="×";del.style.cssText=""},3000)}};
+hd.append(nm,ct,del);c.appendChild(hd);
+var g=document.createElement("div");g.className="days";
+w.forEach(function(d,i){var k=fmt(d);
+var l=document.createElement("label");l.className="day"+(k===t?" today":"")+(k>t?" future":"");
+var a=document.createElement("span");a.textContent=WD[i];
+var b=document.createElement("span");b.textContent=d.getDate();
+var cb=document.createElement("input");cb.type="checkbox";cb.checked=!!(h.days&&h.days[k]);cb.disabled=k>t;
+cb.onchange=function(){h.days=h.days||{};if(cb.checked)h.days[k]=true;else delete h.days[k];hsave();hrender()};
+l.append(a,b,cb);g.appendChild(l)});
+c.appendChild(g);box.appendChild(c)});
+mrender()}
+var mOff=0,MN=["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+function mrender(){
+var n=new Date(),f=new Date(n.getFullYear(),n.getMonth()+mOff,1),y=f.getFullYear(),m=f.getMonth();
+var len=new Date(y,m+1,0).getDate(),lead=(f.getDay()+6)%7,t=today(),g=document.getElementById("mgrid");g.innerHTML="";
+document.getElementById("mtitle").textContent=MN[m]+" "+y;
+WD.forEach(function(x){var h=document.createElement("div");h.className="mh7";h.textContent=x;g.appendChild(h)});
+for(var i=0;i<lead;i++)g.appendChild(document.createElement("div"));
+for(var d=1;d<=len;d++){var k=fmt(new Date(y,m,d));
+var c=habits.filter(function(h){return h.days&&h.days[k]}).length;
+var b=document.createElement("div");b.className="mc"+(k===t?" today":"")+(k>t?" future":"");b.textContent=d;
+if(c>0){var r=c/habits.length;b.className+=" on";
+b.style.background="rgba(245,166,35,"+(0.35+0.65*r).toFixed(2)+")";
+b.style.color=r>=0.6?"#1d1d1b":"var(--text)"}
+b.title=c+"/"+habits.length;g.appendChild(b)}}
+document.getElementById("mprev").onclick=function(){mOff--;mrender()};
+document.getElementById("mnext").onclick=function(){mOff++;mrender()};
+function hadd(){var f=document.getElementById("hneu"),v=f.value.trim();if(!v)return;
+habits.push({id:Date.now()+"-"+Math.random().toString(36).slice(2,6),name:v,days:{}});f.value="";hsave();hrender()}
+document.getElementById("hplus").onclick=hadd;
+document.getElementById("hneu").onkeydown=function(e){if(e.key==="Enter")hadd()};
+var VIEWS=["arbeit","privat","habit"],TITLES={arbeit:"Arbeit",privat:"Privat",habit:"Gewohnheiten"};
+function tab(v){VIEWS.forEach(function(n){$("view-"+n).hidden=n!==v;$("tab-"+n).className="tab"+(n===v?" on":"")});
+$("title").textContent=TITLES[v];if(v==="habit")hrender()}
+VIEWS.forEach(function(n){$("tab-"+n).onclick=function(){tab(n)}});
+function check(){lists.forEach(function(l){l.check()});hrender()}
 document.addEventListener("visibilitychange",function(){if(!document.hidden)check()});
 setInterval(check,60000);
-purge();save();render();
 if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){})}
 </script>
 </body>
